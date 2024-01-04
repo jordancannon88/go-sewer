@@ -22,6 +22,10 @@ func main() {
 		// Fail.
 		fmt.Print("False")
 	}
+
+	// Call single functions.
+	// fizzBuzz(1, 100)
+	// fizzBuzzRedux(1, 100)
 }
 
 // A function that does a linear search on an ordered or unordered array to find a specfic value.
@@ -134,4 +138,41 @@ func binarySearchRedux(haystack []int, needle int) bool {
 	}
 	// Fail.
 	return false
+}
+
+// For multiples of 3 say Fizz. For multiples of 5 say Buzz. And for multiples of both 3 and 5 say FizzBuzz.
+// Print everything else.
+func fizzBuzz(start int, end int) {
+	for i := start; i < (end + 1); i++ {
+		if i%3 == 0 && i%5 == 0 {
+			fmt.Println("FizzBuzz")
+		} else if i%3 == 0 {
+			fmt.Println("Fizz")
+		} else if i%5 == 0 {
+			fmt.Println("Buzz")
+		} else {
+			fmt.Println(i)
+		}
+	}
+}
+
+// For multiples of 3 say Fizz. For multiples of 5 say Buzz. And for multiples of both 3 and 5 say FizzBuzz.
+// Print everything else.
+func fizzBuzzRedux(start int, end int) {
+	for i := start; i < (end + 1); i++ {
+		mixedOutput := []interface{}{}
+
+		if i%3 == 0 {
+			mixedOutput = append(mixedOutput, "Fizz")
+		}
+		if i%5 == 0 {
+			mixedOutput = append(mixedOutput, "Buzz")
+		}
+
+		if mixedOutput != nil {
+			mixedOutput = append(mixedOutput, i)
+		}
+
+		fmt.Println(mixedOutput[0])
+	}
 }
