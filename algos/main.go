@@ -1,16 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	// Set the value you wish to search for in an array.
-	var value_to_find int = 8888
+	var valueToFind int = 2
 
-	// Create an array to be searched.
-	var custom_array = [12]int{1, 2, 3, 69, 420, 666, 6969, 8888, 10000, 15000, 25000, 50000}
+	// Create an array.
+	// var customArray = [8]int{1, 2, 3, 4, 5, 6, 7, 8}
+
+	// Create a slice.
+	var customSlice = []int{2, 4, 6, 8, 10}
 
 	// Functions return true or false; print on those results.
-	if binary_search(custom_array, value_to_find) {
+	if binarySearch(customSlice, valueToFind) {
 		// Success.
 		fmt.Print("True")
 	} else {
@@ -19,12 +24,12 @@ func main() {
 	}
 }
 
-// A function that does a linear search on an sorted or unsorted array to find a specfic value.
+// A function that does a linear search on an ordered or unordered array to find a specfic value.
 // The goal is to iteratate over each value in the array and determine if the
 // the value matches the needle provided.
 //
-// Big O Notation: O(N)
-func linear_search(haystack [12]int, needle int) bool {
+// Big O Notation: O(n)
+func linearSearch(haystack []int, needle int) bool {
 	// Create a loop. Use the length of the haystack array as the constraint for
 	// the loop. Increment by 1.
 	for i := 0; i < len(haystack); i++ {
@@ -38,16 +43,74 @@ func linear_search(haystack [12]int, needle int) bool {
 	return false
 }
 
-// A function that does a binary search on a sorted array to find a specfic value.
-// This function can only work with a sorted array as the code is written for that
+// A function that does a binary search on a ordered array to find a specfic value.
+// This function can only work with a ordered array as the code is written for that
 // assumption.
 //
-// Big O Notation: O(LOG)
-func binary_search(haystack [12]int, needle int) bool {
+// Big O Notation: O(log n)
+func binarySearch(haystack []int, needle int) bool {
 	// Set the low variable.
-	lo := 0
+	var lo = 0
 	// Set the upper(high) variable.
-	hi := len(haystack)
+	var hi = len(haystack)
+
+	// Create a loop.
+	for i := 0; i < len(haystack); i++ {
+		// Get the middle index of the array by splitting it.
+		var middleIndex int = lo + (hi-lo)/2
+		// Initiliaze var.
+		var middleValue int
+		// If the middleIndex is greater than the length of the array then the needle doesn't exist.
+		if len(haystack)-1 < middleIndex {
+			return false
+		}
+		// Set the value of the middle index.
+		middleValue = haystack[middleIndex]
+		// First, check if middle index matches needle.
+		if middleValue == needle {
+			// Success.
+			return true
+		}
+		// Nothing found yet:
+		// Second, check if the middle index of the array is greater than the needle.
+		if middleValue > needle {
+			// Success. Set the upper(high) variable to the middle index.
+			hi = middleIndex
+		} else {
+			// Otherwise, it is lower. Set the low variable to the midle index and increment by 1.
+			lo = middleIndex + 1
+		}
+	}
+	// Fail.
+	return false
+}
+
+// Return a new array after doubling every item in the original array.
+//
+// Big O Notation: O(n)
+func double(orginal_array []int) []int {
+	for i := 0; i < len(orginal_array); i++ {
+		orginal_array[i] = orginal_array[i] * 2
+	}
+	return orginal_array
+}
+
+// Add every item in the original array and return the result.
+//
+// Big O Notation: O(n)
+func add(original_array []int) int {
+	result := 0
+	for i := 0; i < len(original_array); i++ {
+		result += original_array[i]
+	}
+	return result
+}
+
+func binarySearchRedux(haystack []int, needle int) bool {
+	// Set the low variable.
+	var lo = 0
+	// Set the upper(high) variable.
+	var hi = len(haystack)
 
 	// Create a loop. Use the low and upper(high) variables for setting the
 	// loops constraints. Increment by 1.
@@ -60,12 +123,12 @@ func binary_search(haystack [12]int, needle int) bool {
 			return true
 		}
 		// Nothing found yet:
-		// Second, check if the needle is greater than the middle index.
+		// Second, check if the middle index of the array is greater than the needle.
 		if haystack[middle] > needle {
 			// Success. Set the upper(high) variable to the middle index.
 			hi = middle
 		} else {
-			// Otherwise, set the low variable to the midle index and increment by 1.
+			// Otherwise, it is lower. Set the low variable to the midle index and increment by 1.
 			lo = middle + 1
 		}
 	}
