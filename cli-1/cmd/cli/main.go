@@ -55,7 +55,7 @@ func main() {
 
 	switch os.Args[1] {
 	case "help":
-		rootHelp(commands)
+		handler.RootHelp(commands)
 		// rootHelp(commands)
 	case "get":
 		// getHandler(getCMD, getAll, getID)
