@@ -1,10 +1,10 @@
 package main
 
 import (
+	"cli-1/internal/handler"
 	"flag"
 	"fmt"
 	"os"
-	"cli-1/internal/handler"
 )
 
 var commands = map[string]string{
