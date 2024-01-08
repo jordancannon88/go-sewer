@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"internal/project"
 )
 
 func rootAdd() {
@@ -29,13 +31,13 @@ func addHandler(addCMD *flag.FlagSet, addDesc *string) {
 
 	projectName := os.Args[2]
 
-	project := project{
+	proj := project.Project{
 		Name:        projectName,
 		Description: *addDesc,
 	}
 
 	// Get all projects.
-	projects := getProject(projectName)
+	projects := project.Get(projectName)
 
 	// Check if project name already exists.
 	for _, v := range projects {
@@ -46,8 +48,8 @@ func addHandler(addCMD *flag.FlagSet, addDesc *string) {
 	}
 
 	// Add new project to all projects.
-	projects = append(projects, project)
+	projects = append(projects, proj)
 
 	// Save all projects.
-	saveProject(projects)
+	project.Save(projects...)
 }

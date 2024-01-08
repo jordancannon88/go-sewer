@@ -4,7 +4,8 @@ import (
 	"fmt"
 )
 
-func rootHelp(commands map[string]string) {
+// RootHelp needed to be exported (capitalized)
+func RootHelp(commands map[string]string) {
 	fmt.Println(`Projexts is a tool for managing customers.
 
 Usage:

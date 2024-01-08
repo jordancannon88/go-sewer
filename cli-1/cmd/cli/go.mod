@@ -1,4 +1,4 @@
-module cli-1/cmd/cli
+module cli
 
 replace internal => ../../internal
 

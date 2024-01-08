@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"internal/project"
 )
 
 func rootGet() {
@@ -36,7 +38,7 @@ func getHandler(getCMD *flag.FlagSet, getAll *bool, getID *string) {
 		fmt.Print("Get company by ID: ", *getID)
 	}
 	if *getAll {
-		projects := getProject(projectName)
+		projects := project.Get(projectName)
 		for _, v := range projects {
 			fmt.Printf("%v\n", v.Name)
 		}

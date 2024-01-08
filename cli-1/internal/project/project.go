@@ -5,12 +5,12 @@ import (
 	"os"
 )
 
-type project struct {
+type Project struct {
 	Name        string
 	Description string
 }
 
-func getProject(projectName string) (project []project) {
+func Get(projectName string) (project []Project) {
 
 	projectByte, err := os.ReadFile("./project.json")
 	if err != nil {
@@ -26,7 +26,8 @@ func getProject(projectName string) (project []project) {
 	return project
 }
 
-func saveProject(project []project) {
+// takes in any number of projects (could take in none, too, with the spread operator or whatever the hell it's called)
+func Save(project ...Project) {
 
 	projectByte, err := json.Marshal(project)
 	if err != nil {
