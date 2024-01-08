@@ -1,9 +1,9 @@
 package main
 
 import (
-	"cli-1/internal/handler"
 	"flag"
 	"fmt"
+	"internal/handler"
 	"os"
 )
 
