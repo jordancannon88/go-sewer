@@ -21,15 +21,18 @@ func rootGet() {
 	os.Exit(1)
 }
 
-func getHandler(getCMD *flag.FlagSet, getAll *bool, getID *string) {
+func GetHandler(getCMD *flag.FlagSet, getAll *bool, getID *string) {
 	// Make sure an arg was passed as a name.
 	if len(os.Args) < 3 {
 		rootGet()
 		os.Exit(1)
 	}
 
-	getCMD.Parse(os.Args[2:])
-	projectName := os.Args[2]
+	getCMD.Parse(os.Args[3:])
+
+	fmt.Println(*getAll)
+	fmt.Println(*getID)
+
 	if *getAll == false && *getID == "" {
 		fmt.Println("id is required or specify --all for all companies")
 		os.Exit(1)
@@ -38,22 +41,9 @@ func getHandler(getCMD *flag.FlagSet, getAll *bool, getID *string) {
 		fmt.Print("Get company by ID: ", *getID)
 	}
 	if *getAll {
-		projects := project.Get(projectName)
+		projects := project.Get()
 		for _, v := range projects {
 			fmt.Printf("%v\n", v.Name)
 		}
 	}
-}
-
-func validateProject(addCMD *flag.FlagSet) {
-
-	// Parse all arguments after the name arg.
-	addCMD.Parse(os.Args[3:])
-
-	// if *id == "" || *title == "" || *url == "" || *imageUrl == "" || *description == "" {
-	// 	fmt.Print("all fields are required for adding a video")
-	// 	addCmd.PrintDefaults()
-	// 	os.Exit(1)
-	// }
-
 }

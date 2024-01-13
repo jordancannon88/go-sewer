@@ -20,14 +20,14 @@ func rootAdd() {
 	os.Exit(1)
 }
 
-func addHandler(addCMD *flag.FlagSet, addDesc *string) {
+func AddHandler(addCMD *flag.FlagSet, addDesc *string) {
 	// Make sure an arg was passed as a name.
 	if len(os.Args) < 3 {
 		rootAdd()
 		os.Exit(1)
 	}
 
-	validateProject(addCMD)
+	addCMD.Parse(os.Args[3:])
 
 	projectName := os.Args[2]
 
@@ -36,8 +36,10 @@ func addHandler(addCMD *flag.FlagSet, addDesc *string) {
 		Description: *addDesc,
 	}
 
+	fmt.Println(proj)
+
 	// Get all projects.
-	projects := project.Get(projectName)
+	projects := project.Get()
 
 	// Check if project name already exists.
 	for _, v := range projects {
@@ -51,5 +53,5 @@ func addHandler(addCMD *flag.FlagSet, addDesc *string) {
 	projects = append(projects, proj)
 
 	// Save all projects.
-	project.Save(projects...)
+	project.Save(projects)
 }

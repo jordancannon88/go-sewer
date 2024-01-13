@@ -10,9 +10,9 @@ type Project struct {
 	Description string
 }
 
-func Get(projectName string) (project []Project) {
+func Get() (project []Project) {
 
-	projectByte, err := os.ReadFile("./project.json")
+	projectByte, err := os.ReadFile("../../project.json")
 	if err != nil {
 		panic(err)
 	}
@@ -27,14 +27,15 @@ func Get(projectName string) (project []Project) {
 }
 
 // takes in any number of projects (could take in none, too, with the spread operator or whatever the hell it's called)
-func Save(project ...Project) {
+// func Save(project ...Project) {
+func Save(project []Project) {
 
 	projectByte, err := json.Marshal(project)
 	if err != nil {
 		panic(err)
 	}
 
-	if err := os.WriteFile("./project.json", projectByte, 0644); err != nil {
+	if err := os.WriteFile("../../project.json", projectByte, 0644); err != nil {
 		// log.Fatal(err)
 		panic(err)
 	}
